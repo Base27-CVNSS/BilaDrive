@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BilaDrive - client lưu trữ phi tập trung trên Arweave, local-first, gateway failover, mã hóa phía trình duyệt.">
+  <meta name="theme-color" content="#000000">
+  <title>BilaDrive // Permanent Storage Client</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell" role="application" aria-label="BilaDrive">
+    <header class="titlebar">
+      <div><span class="prompt">C:\BILADRIVE&gt;</span><strong> PERMANENT_STORAGE.EXE</strong></div>
+      <div class="titlebar-meta">ARWEAVE CLIENT // v0.1.0</div>
+    </header>
+    <section class="status-strip" aria-label="Trạng thái hệ thống">
+      <span>NET: <strong id="networkStatus">CHECKING</strong></span>
+      <span>GW: <strong id="gatewayStatus">-</strong></span>
+      <span>WALLET: <strong id="walletStatus">DISCONNECTED</strong></span>
+      <span>LOCAL INDEX: <strong id="recordCount">0</strong></span>
+    </section>
+    <nav class="toolbar" aria-label="Thanh công cụ">
+      <button id="connectArConnectBtn">[F1] KẾT NỐI ARCONNECT</button>
+      <button id="importJwkBtn">[F2] NẠP JWK</button>
+      <button id="disconnectBtn">[F3] NGẮT KẾT NỐI</button>
+      <button id="syncBtn">[F5] ĐỒNG BỘ MẠNG</button>
+      <button id="checkGatewaysBtn">[F6] KIỂM TRA GATEWAY</button>
+      <button id="exportIndexBtn">[F7] XUẤT INDEX</button>
+      <button id="importIndexBtn">[F8] NHẬP INDEX</button>
+      <input id="jwkInput" type="file" accept="application/json,.json" hidden>
+      <input id="indexInput" type="file" accept="application/json,.json" hidden>
+    </nav>
+    <main>
+      <section class="panel upload-panel" aria-labelledby="uploadTitle">
+        <div class="panel-title" id="uploadTitle">[ UPLOAD / GHI DỮ LIỆU LÊN ARWEAVE ]</div>
+        <div class="upload-grid">
+          <label class="field file-field"><span>TỆP</span><input id="fileInput" type="file"></label>
+          <label class="field"><span>CHẾ ĐỘ</span><select id="modeSelect"><option value="public">PUBLIC / CÔNG KHAI</option><option value="private">PRIVATE / AES-256-GCM</option></select></label>
+          <label class="field" id="passwordField" hidden><span>MẬT KHẨU MÃ HÓA</span><input id="passwordInput" type="password" autocomplete="new-password" placeholder="Không lưu trên server"></label>
+          <div class="upload-actions"><button id="estimateBtn">ƯỚC TÍNH PHÍ</button><button id="uploadBtn" class="primary">UPLOAD</button></div>
+        </div>
+        <div class="notice">PUBLIC là bất biến sau khi xác nhận. PRIVATE mã hóa trong trình duyệt trước khi ký; BilaDrive không gửi khóa/JWK/mật khẩu tới máy chủ ứng dụng.</div>
+      </section>
+      <section class="panel explorer-panel" aria-labelledby="explorerTitle">
+        <div class="panel-title row-title"><span id="explorerTitle">[ FILE EXPLORER / CHỈ MỤC CỤC BỘ ]</span><input id="searchInput" class="search" type="search" placeholder="Tìm tên, MIME, TX ID..." aria-label="Tìm tệp"></div>
+        <div class="table-wrap"><table><thead><tr><th>TÊN</th><th>LOẠI</th><th>KÍCH THƯỚC</th><th>MODE</th><th>TX ID</th><th>TRẠNG THÁI</th><th>THAO TÁC</th></tr></thead><tbody id="fileTableBody"><tr><td colspan="7" class="empty">CHƯA CÓ DỮ LIỆU.</td></tr></tbody></table></div>
+      </section>
+      <section class="panel console-panel" aria-labelledby="consoleTitle"><div class="panel-title" id="consoleTitle">[ SYSTEM CONSOLE ]</div><pre id="consoleOutput" aria-live="polite">BilaDrive booting...
+</pre></section>
+    </main>
+    <footer class="footer"><span>BILADRIVE // MIT // LONG NGO</span><span>PROTOCOL: ARWEAVE</span><a href="https://github.com/Base27-CVNSS/BilaDrive" target="_blank" rel="noreferrer">SOURCE</a></footer>
+  </div>
+  <script src="https://unpkg.com/arweave@1.15.7/bundles/web.bundle.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
